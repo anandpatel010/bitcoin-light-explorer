@@ -6,7 +6,6 @@ $( document ).ready(function() {
     $('#id_link').addClass('invisible');
     get_height();
     alert_success('Got height!');
-    alert_warning('Waiting for a new block to get delegate info and id.');
     setInterval(get_height,5000);
     $('#tx_table').hide();
 });
@@ -39,11 +38,10 @@ function height_id(block_hash) {
         let hash = block_hash;
         let ntxs = response['n_tx'];
         let size = response['size'];
-        let relayed_by = response['relayed_by'];
         let hash_link = 'https://www.blockchain.com/btc/block/' + hash;
         get_delegate();
+        get_fees()
         $('#id_link').removeClass('invisible').attr("href", hash_link);//show and link to block
-        $('#supply').text('Relayed by: '+relayed_by);
         $('#id').text('hash: ' + hash);
         $('#spinner').remove();
         $('#delegate_spinner').remove();
@@ -52,6 +50,14 @@ function height_id(block_hash) {
         return id;
     });
     }
+
+function get_fees() {
+    $.get("https://bitcoinfees.earn.com/api/v1/fees/recommended", '&cors=true', function(response, status) {
+        let fee_data = response;
+        console.log(fee_data);
+        $('#supply').text('fastest fee: '+ fee_data['fastestFee'] + ' sat/byte ' + ' 30min fee: '+ fee_data['halfHourFee'] + ' sat/byte ' + ' 1hr fee: '+ fee_data['hourFee' ] + ' sat/byte ');
+    });
+}
 
 function get_delegate(){
     $.get("https://chain.api.btc.com/v3/tx/unconfirmed/summary", 'JSON' , function(response, status){

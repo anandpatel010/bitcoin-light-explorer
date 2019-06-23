@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <link rel="shortcut icon" type="image/png" href="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/microsoft/153/right-pointing-magnifying-glass_1f50e.png"/>
+  <title>Rise Light Explorer - Home</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Animate CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135996748-2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-135996748-2');
+  </script>
+</head>
+<body style="background: linear-gradient(to right, #0062E6, #33AEFF);">
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light static-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">Rise Light Explorer <span class="badge badge-primary">BETA</span></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home
+              <span class="sr-only">(current)</span>
+            </a>
+            <li class="nav-item">
+                <a class="nav-link" href="about/">About</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Page Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+          <h1 id="height" class="font-weight-light mt-4 text-white font-weight-bold">Retrieving height...</h1>
+          <a id="delegate" href="https://www.smartbit.com.au/txs" target="_blank" class="btn btn-light" data-toggle="tooltip" data-html="true" data-placement="left" title="This is an <b>approximate</b> value because all nodes in the bitcoin network can have <b>different transactions</b> in their mempool">
+              <span id="delegate_spinner" class="spinner-border text-dark spinner-border-sm" role="status" aria-hidden="true"></span>
+              <span class="font-weight-bold" id="forger"></span> <span id="rank" class="badge badge-secondary"></span>
+          </a>
+            <br>
+            <br>
+            <p id="words" class="lead text-white-50"></p>
+            <p id="supply" class="lead text-white-50"></p>
+          <a id="id_link" target="_blank" class="btn btn-light">
+            <span id="id" class="lead text-black-50"></span>
+          </a>
+          <p id="id" class="lead text-white-50"></p>
+          <div id="spinner" class="spinner-border m-5 text-light" role="status">
+              <span class="sr-only">Loading...</span>
+          </div>
+
+            <p id="ntxs" class="lead text-white-50"></p>
+            <p id="txed" class="lead text-white-50"></p>
+          <br>
+            <p id="display_tx" class="lead text-white-50"></p>
+
+          <div id="tx_table" class="card">
+              <div class="card-body">
+          <table class="table table-hover table-bordered table-light">
+              <caption>Live Transactions - Sorted by top:latest</caption>
+              <thead>
+              <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Sender</th>
+                  <th scope="col">Amount</th>
+                  <th scope="col">Recipient</th>
+                  <th scope="col">In block</th>
+              </tr>
+              </thead>
+              <tbody>
+
+              </tbody>
+          </table>
+          </div>
+          </div>
+
+            <ul class="list-unstyled">
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Rise API -->
+  <script type="text/javascript" src="vendor/risejs/index.js"></script>
+  <!-- main -->
+  <script type="text/javascript" src="script.js"></script>
+  <!-- Bootstrap notify JavaScript -->
+  <script type="text/javascript" src="vendor/bootstrap-notify-3.1.3/dist/bootstrap-notify.js"></script>
+  <!-- numberToWords -->
+  <script type="text/javascript" src="vendor/numberToWords/numberToWords.min.js"></script>
+
+</body>
+
+</html>

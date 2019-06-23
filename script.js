@@ -1,6 +1,7 @@
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 })
+$('#tx_table').hide();
 
 $( document ).ready(function() {
     $('#id_link').addClass('invisible');

@@ -105,16 +105,6 @@ function display_fees(){
                '</tr>');
        }
     });
-    /**$('#tx_table').show();
-    for (let tx in transactions){
-        $('#tx_table tbody').prepend('<tr>\n' +
-            '<th scope="row">'+ type +'</th>\n' +
-            '<td>' + sender + '</td>\n' +
-            '<td>' + amount + '</td>\n' +
-            '<td>' + reciever + '</td>\n' +
-            '<td>' + height + '</td>\n' +
-            '</tr>');
-        console.log(transactions);**/
     }
 
 function alert_success(message){

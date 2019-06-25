@@ -1,6 +1,4 @@
 //TODO
-// CHECK REDDIT, WANTS 1 SAT FEE TIMING DOOABLE WITH BTC.COM REQUIRES ALL FEES TABLE DOWNLOAD
-// PUT FEES IN TABLE -- need to refresh table
 // DOCUMENT EACH FUNCTION WITH [INFO] & [MORE_INFO]
 // INCLUDE TIME SINCE LAST BLOCK
 
@@ -69,7 +67,7 @@ function get_fees() {
         $('#fee2').text('30min fee: '+ fee_data['halfHourFee'] + ' sat/byte ');
         $('#fee3').text('1hr fee: '+ fee_data['hourFee' ] + ' sat/byte ');
     });
-    //display_fees();
+    display_fees();
 }
 
 function get_delegate(){
@@ -90,7 +88,8 @@ function get_delegate(){
 }
 
 function display_fees(){
-    //$("#tx_table tbody").remove();
+    $("tx_table").find("tr:gt(0)").remove();
+    console.log('data cleared');
     $('#tx_table').show();
     $.get("https://bitcoinfees.earn.com/api/v1/fees/list", 'JSON' , function(response, status){
        fees = response['fees'];

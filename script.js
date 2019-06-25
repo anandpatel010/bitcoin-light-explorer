@@ -1,3 +1,10 @@
+//TODO
+
+// CHECK REDDIT, WANTS 1 SAT FEE TIMING DOOABLE WITH BTC.COM REQUIRES ALL FEES TABLE DOWNLOAD
+// PUT FEES IN TABLE
+// HASHID LOOKS WIERD ON DESKTOP
+// DOCUMENT EACH FUNCTION WITH [INFO] & [MORE_INFO]
+// INCLUDE TIME SINCE LAST BLOCK
 
 //this function enables tooltip [INFO]: https://getbootstrap.com/docs/4.0/components/tooltips/
 $(function () {
@@ -12,6 +19,7 @@ $( document ).ready(function() {
     alert_success('Got height!');
     setInterval(get_height,5000);   //get_height is recalled every 5 seconds
     $('#tx_table').hide();
+    display_fees();
 });
 
 function get_height(){
@@ -46,7 +54,7 @@ function height_id(block_hash) {
         get_delegate();
         get_fees();
         $('#id_link').removeClass('invisible').attr("href", hash_link);//show and link to block
-        $('#id').text('hash: ' + hash);
+        $('#id').text('Explore block');
         $('#spinner').remove();
         $('#mempool_spinner').remove();
         $('#txs_inblock').text('Includes: '+ ntxs +' transactions');
@@ -63,6 +71,7 @@ function get_fees() {
         $('#fee2').text('30min fee: '+ fee_data['halfHourFee'] + ' sat/byte ');
         $('#fee3').text('1hr fee: '+ fee_data['hourFee' ] + ' sat/byte ');
     });
+    //display_fees();
 }
 
 function get_delegate(){
@@ -81,6 +90,34 @@ function get_delegate(){
         $('#mempool_size').text(mempool_size).addClass('animated fadeInRight');
     })
 }
+
+function display_fees(){
+    //$("#tx_table tbody").remove();
+    $('#tx_table').show();
+    $.get("https://bitcoinfees.earn.com/api/v1/fees/list", 'JSON' , function(response, status){
+       fees = response['fees'];
+       console.log(fees);
+       for (let fee in fees) {
+           $('#tx_table tbody').before('<tr>\n' +
+               '<th scope="row">'+ fees[fee].minFee + ' - ' + fees[fee].maxFee +'</th>\n' +
+               '<td>' + (fees[fee].dayCount) + '</td>\n' +
+               '<td>' + (fees[fee].memCount) + '</td>\n' +
+               '<td>' + (fees[fee].maxDelay) + '</td>\n' +
+               '<td>' + (fees[fee].maxMinutes) + '</td>\n' +
+               '</tr>');
+       }
+    });
+    /**$('#tx_table').show();
+    for (let tx in transactions){
+        $('#tx_table tbody').prepend('<tr>\n' +
+            '<th scope="row">'+ type +'</th>\n' +
+            '<td>' + sender + '</td>\n' +
+            '<td>' + amount + '</td>\n' +
+            '<td>' + reciever + '</td>\n' +
+            '<td>' + height + '</td>\n' +
+            '</tr>');
+        console.log(transactions);**/
+    }
 
 function alert_success(message){
     $.notify({

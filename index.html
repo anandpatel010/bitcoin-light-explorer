@@ -56,13 +56,12 @@
               <span class="font-weight-bold" id="mempool_count"></span> <span id="mempool_size" class="badge badge-secondary"></span>
           </a>
             <br>
-            <br>
             <p id="words" class="lead text-white-50"></p>
             <p id="fee1" class="lead font-weight-bold text-white-50"></p>
             <p id="fee2" class="lead font-weight-bold text-white-50"></p>
             <p id="fee3" class="lead font-weight-bold text-white-50"></p>
 
-          <a id="id_link" target="_blank" class="btn btn-light embed-responsive">
+          <a id="id_link" target="_blank" class="btn btn-light">
             <span id="id" class="lead text-black-50"></span>
           </a>
           <p id="id" class="lead text-white-50"></p>
@@ -77,15 +76,15 @@
 
           <div id="tx_table" class="card">
               <div class="card-body">
-          <table class="table table-hover table-bordered table-light">
+          <table class="table table-hover table-bordered table-light text-center">
               <caption>Live fee levels</caption>
               <thead>
               <tr>
-                  <th scope="col">sat/byte</th>
-                  <th scope="col"># seen today</th>
-                  <th scope="col"># in mempool now</th>
-                  <th scope="col">Min minutes</th>
-                  <th scope="col">Max minutes</th>
+                  <th scope="col" data-toggle="tooltip" data-html="true" data-placement="top" title="The min-max fee rate.">sat/byte</th>
+                  <th scope="col" data-toggle="tooltip" data-html="true" data-placement="top" title="Number of confirmed transactions with this fee in the last 24 hours."># confirmed today</th>
+                  <th scope="col" data-toggle="tooltip" data-html="true" data-placement="top" title="Number of unconfirmed transactions with this fee."># in mempool now</th>
+                  <th scope="col" data-toggle="tooltip" data-html="true" data-placement="top" title="Estimated maximum delay (in blocks) until transaction is confirmed (90% confidence interval).">Max delay</th>
+                  <th scope="col" data-toggle="tooltip" data-html="true" data-placement="top" title="Estimated maximum time (in minutes) until transaction is confirmed (90% confidence interval).">Max minutes</th>
               </tr>
               </thead>
               <tbody>

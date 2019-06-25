@@ -1,13 +1,16 @@
+
+//this function enables tooltip [INFO]: https://getbootstrap.com/docs/4.0/components/tooltips/
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
-})
-$('#tx_table').hide();
+});
+
+$('#tx_table').hide(); //HIDES TABLE
 
 $( document ).ready(function() {
-    $('#id_link').addClass('invisible');
-    get_height();
+    $('#id_link').addClass('invisible'); // MAKES ID_LINK INVISIBLE
+    get_height();                       //getheight -> height_id -> get_delegate & get_fees
     alert_success('Got height!');
-    setInterval(get_height,5000);
+    setInterval(get_height,5000);   //get_height is recalled every 5 seconds
     $('#tx_table').hide();
 });
 
@@ -41,13 +44,13 @@ function height_id(block_hash) {
         let size = response['size'];
         let hash_link = 'https://www.blockchain.com/btc/block/' + hash;
         get_delegate();
-        get_fees()
+        get_fees();
         $('#id_link').removeClass('invisible').attr("href", hash_link);//show and link to block
         $('#id').text('hash: ' + hash);
         $('#spinner').remove();
-        $('#delegate_spinner').remove();
-        $('#ntxs').text('Includes: '+ ntxs +' transactions');
-        $('#txed').text('Block size: ' + size/1000 + ' kilobytes');
+        $('#mempool_spinner').remove();
+        $('#txs_inblock').text('Includes: '+ ntxs +' transactions');
+        $('#block_size').text('Block size: ' + size/1000 + ' kilobytes');
         return id;
     });
     }
@@ -56,7 +59,9 @@ function get_fees() {
     $.get("https://bitcoinfees.earn.com/api/v1/fees/recommended", '&cors=true', function(response, status) {
         let fee_data = response;
         console.log(fee_data);
-        $('#supply').text('fastest fee: '+ fee_data['fastestFee'] + ' sat/byte ' + ' 30min fee: '+ fee_data['halfHourFee'] + ' sat/byte ' + ' 1hr fee: '+ fee_data['hourFee' ] + ' sat/byte ');
+        $('#fee1').text('fastest fee: '+ fee_data['fastestFee'] + ' sat/byte ');
+        $('#fee2').text('30min fee: '+ fee_data['halfHourFee'] + ' sat/byte ');
+        $('#fee3').text('1hr fee: '+ fee_data['hourFee' ] + ' sat/byte ');
     });
 }
 
@@ -64,36 +69,18 @@ function get_delegate(){
     $.get("https://chain.api.btc.com/v3/tx/unconfirmed/summary", 'JSON' , function(response, status){
         let mempool_data = response['data'];
         console.log(mempool_data);
-        mempool_count = mempool_data['count'];
-        mempool_size = mempool_data['size'];
+        let mempool_count = mempool_data['count'];
+        let mempool_size = mempool_data['size'];
 
-        $('#forger').removeClass('animated fadeInRight');//remove to re-enable animation
-        $('#rank').removeClass('animated fadeInRight');
+        $('#mempool_count').removeClass('animated fadeInRight');//remove to re-enable animation
+        $('#mempool_size').removeClass('animated fadeInRight');
 
-        let username = '≈' + mempool_count + ' waiting txs';
-        let rank = mempool_size/1000 + ' kb';
-        $('#forger').text(username).addClass('animated fadeInRight');
-        $('#rank').text(rank).addClass('animated fadeInRight');
+        zeroconf_tx = '≈' + mempool_count + ' waiting txs';
+        mempool_size = mempool_size/1000 + ' kb';
+        $('#mempool_count').text(zeroconf_tx).addClass('animated fadeInRight');
+        $('#mempool_size').text(mempool_size).addClass('animated fadeInRight');
     })
 }
-
-function block_info(id) {
-    rise.blocks.getBlock(id).then(function({ block }) {
-        console.log(block);
-        transactions = block['transactions'];
-        if (transactions['length'] >= 1){
-            display_tx(transactions);
-            return block, transactions;
-        }
-        return block;
-    })
-        .catch(function(err) {
-            alert_error('Could not retrieve block info, retrying...');
-            console.log('Error: ', err); // handle error
-            block_info(id);//retry
-        })
-}
-
 
 function alert_success(message){
     $.notify({

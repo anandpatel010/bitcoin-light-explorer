@@ -51,14 +51,17 @@
     <div class="row">
       <div class="col-lg-12 text-center">
           <h1 id="height" class="font-weight-light mt-4 text-white font-weight-bold">Retrieving height...</h1>
-          <a id="delegate" href="https://www.smartbit.com.au/txs" target="_blank" class="btn btn-light" data-toggle="tooltip" data-html="true" data-placement="left" title="This is an <b>approximate</b> value because all nodes in the bitcoin network can have <b>different transactions</b> in their mempool">
-              <span id="delegate_spinner" class="spinner-border text-dark spinner-border-sm" role="status" aria-hidden="true"></span>
-              <span class="font-weight-bold" id="forger"></span> <span id="rank" class="badge badge-secondary"></span>
+          <a href="https://www.smartbit.com.au/txs" target="_blank" class="btn btn-light" data-toggle="tooltip" data-html="true" data-placement="left" title="This is an <b>approximate</b> value because all nodes in the bitcoin network can have <b>different transactions</b> in their mempool">
+              <span id="mempool_spinner" class="spinner-border text-dark spinner-border-sm" role="status" aria-hidden="true"></span>
+              <span class="font-weight-bold" id="mempool_count"></span> <span id="mempool_size" class="badge badge-secondary"></span>
           </a>
             <br>
             <br>
             <p id="words" class="lead text-white-50"></p>
-            <p id="supply" class="lead font-weight-bold text-white-50"></p>
+            <p id="fee1" class="lead font-weight-bold text-white-50"></p>
+            <p id="fee2" class="lead font-weight-bold text-white-50"></p>
+            <p id="fee3" class="lead font-weight-bold text-white-50"></p>
+
           <a id="id_link" target="_blank" class="btn btn-light embed-responsive">
             <span id="id" class="lead text-black-50"></span>
           </a>
@@ -67,22 +70,22 @@
               <span class="sr-only">Loading...</span>
           </div>
 
-            <p id="ntxs" class="lead text-white-50"></p>
-            <p id="txed" class="lead text-white-50"></p>
+            <p id="txs_inblock" class="lead text-white-50"></p>
+            <p id="block_size" class="lead text-white-50"></p>
           <br>
             <p id="display_tx" class="lead text-white-50"></p>
 
           <div id="tx_table" class="card">
               <div class="card-body">
           <table class="table table-hover table-bordered table-light">
-              <caption>Live Transactions - Sorted by top:latest</caption>
+              <caption>Live fee levels</caption>
               <thead>
               <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Sender</th>
-                  <th scope="col">Amount</th>
-                  <th scope="col">Recipient</th>
-                  <th scope="col">In block</th>
+                  <th scope="col">sat/byte</th>
+                  <th scope="col"># seen today</th>
+                  <th scope="col"># in mempool now</th>
+                  <th scope="col">Min minutes</th>
+                  <th scope="col">Max minutes</th>
               </tr>
               </thead>
               <tbody>

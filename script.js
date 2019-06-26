@@ -50,7 +50,7 @@ function height_id(block_hash) {
         get_delegate();
         get_fees();
         $('#id_link').removeClass('invisible').attr("href", hash_link);//show and link to block
-        $('#id').text('Explore block');
+        $('#id').text('Explore block ➡️');
         $('#spinner').remove();
         $('#mempool_spinner').remove();
         $('#txs_inblock').text('Includes: '+ ntxs +' transactions');

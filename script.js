@@ -15,20 +15,18 @@ $( document ).ready(function() {
     alert_success('Got height!');
     setInterval(get_height,5000);   //get_height is recalled every 5 seconds
     $('#tx_table').hide();
-    display_fees();
 });
 
 function get_height(){
 
     $.get("https://blockchain.info/latestblock" , '&cors=true', function(response, status) {
         let block_data = response;
-        console.log(block_data);
+        //console.log(block_data);4097
         $('#height').removeClass('animated rollIn');
         let height = block_data["height"];
         let block_hash = block_data["hash"];
         let displayed_height = document.getElementById("height").innerHTML;
         if (parseInt(displayed_height) < parseInt(height)) {
-            warning.close();//close warning when block updates
             alert_info('New block');
             height_id(block_hash);
             $('#height').addClass('animated rollIn');//animate only on change
@@ -49,6 +47,7 @@ function height_id(block_hash) {
         let hash_link = 'https://www.blockchain.com/btc/block/' + hash;
         get_delegate();
         get_fees();
+        display_fees();
         $('#id_link').removeClass('invisible').attr("href", hash_link);//show and link to block
         $('#id').text('Explore block ➡️');
         $('#spinner').remove();
@@ -62,18 +61,17 @@ function height_id(block_hash) {
 function get_fees() {
     $.get("https://bitcoinfees.earn.com/api/v1/fees/recommended", '&cors=true', function(response, status) {
         let fee_data = response;
-        console.log(fee_data);
+        //console.log(fee_data);
         $('#fee1').text('fastest fee: '+ fee_data['fastestFee'] + ' sat/byte ');
         $('#fee2').text('30min fee: '+ fee_data['halfHourFee'] + ' sat/byte ');
         $('#fee3').text('1hr fee: '+ fee_data['hourFee' ] + ' sat/byte ');
     });
-    display_fees();
 }
 
 function get_delegate(){
     $.get("https://chain.api.btc.com/v3/tx/unconfirmed/summary", 'JSON' , function(response, status){
         let mempool_data = response['data'];
-        console.log(mempool_data);
+        //console.log(mempool_data);
         let mempool_count = mempool_data['count'];
         let mempool_size = mempool_data['size'];
 
@@ -88,13 +86,13 @@ function get_delegate(){
 }
 
 function display_fees(){
-    $("tx_table").find("tr:gt(0)").remove();
-    console.log('data cleared');
-    $('#tx_table').show();
     $.get("https://bitcoinfees.earn.com/api/v1/fees/list", 'JSON' , function(response, status){
        fees = response['fees'];
-       console.log(fees);
-       for (let fee in fees) {
+       //console.log(fees);
+        $("#tx_table").find("tr:gt(0)").remove();
+        //console.log('data cleared');
+        $('#tx_table').show();
+        for (let fee in fees) {
            $('#tx_table tbody').before('<tr>\n' +
                '<th scope="row">'+ fees[fee].minFee + ' - ' + fees[fee].maxFee +'</th>\n' +
                '<td>' + (fees[fee].dayCount) + '</td>\n' +

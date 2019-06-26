@@ -89,17 +89,17 @@ function display_fees(){
        fees = response['fees'];
        //console.log(fees);
         $("#tx_table").find("tr:gt(0)").remove();
-        console.log('data cleared');
-        $('#tx_table').show();
+        //console.log('data cleared');
         for (let fee in fees) {
-           $('#tx_table tbody').before('<tr>\n' +
-               '<th scope="row">'+ fees[fee].minFee + ' - ' + fees[fee].maxFee +'</th>\n' +
-               '<td>' + (fees[fee].dayCount) + '</td>\n' +
-               '<td>' + (fees[fee].memCount) + '</td>\n' +
-               '<td>' + (fees[fee].maxDelay) + '</td>\n' +
-               '<td>' + (fees[fee].maxMinutes) + '</td>\n' +
-               '</tr>');
-       }
+                $('#tx_table tbody').before('<tr class="table-light">\n' +
+                    '<th scope="row">'+ fees[fee].minFee + ' - ' + fees[fee].maxFee +'</th>\n' +
+                    '<td>' + (fees[fee].dayCount) + '</td>\n' +
+                    '<td>' + (fees[fee].memCount) + '</td>\n' +
+                    '<td>' + (fees[fee].maxDelay) + '</td>\n' +
+                    '<td>' + (fees[fee].maxMinutes) + '</td>\n' +
+                    '</tr>');
+            }
+        $('#tx_table').show();
     });
     }
 

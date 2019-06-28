@@ -1,24 +1,38 @@
 //TODO
-// DOCUMENT EACH FUNCTION WITH [INFO] & [MORE_INFO]
 // INCLUDE TIME SINCE LAST BLOCK
+// REDUCE FREQUENCY DATA IS CALLED FOR FEE TABLE
+// ADD DATATABLE FUNCTIONALITY TO FEE TABLE
+// GIVE ERROR & WARNING FUNCTIONALITY
 
-//this function enables tooltip [INFO]: https://getbootstrap.com/docs/4.0/components/tooltips/
+/**
+ * Enables bootstrap tooltips
+ * More info: https://getbootstrap.com/docs/4.0/components/tooltips/
+ * @constructor
+ */
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 });
 
-$('#tx_table').hide(); //HIDES TABLE
+$('#tx_table').hide();
+$('#id_link').addClass('invisible');
 
+/**
+ * On document ready, call continuous method get_height() and notify of page load
+ * @constructor
+ */
 $( document ).ready(function() {
-    $('#id_link').addClass('invisible'); // MAKES ID_LINK INVISIBLE
-    get_height();                       //getheight -> height_id -> get_mempool & get_fees
+    get_height();
     alert_success('Got height!');
-    setInterval(get_height,5000);   //get_height is recalled every 5 seconds
-    $('#tx_table').hide();
+    setInterval(get_height,5000);
 });
 
+/**
+ * Checks for new chain height
+ * If true: will update and call get_block and do fancy animation.
+ * Sets the new text for the received data does recursion and calls get_mempool()
+ * @constructor
+ */
 function get_height(){
-
     $.get("https://blockchain.info/latestblock" , '&cors=true', function(response, status) {
         let block_data = response;
         //console.log(block_data);
@@ -28,35 +42,45 @@ function get_height(){
         let displayed_height = document.getElementById("height").innerHTML;
         if (parseInt(displayed_height) < parseInt(height)) {
             alert_info('New block');
-            height_id(block_hash);
+            get_block(block_hash);
             $('#height').addClass('animated rollIn');//animate only on change
         } //else?
         $('#height').text(height); //get height value
         $('#words').text(numberToWords.toWords(height) + ' blocks');
-        height_id(block_hash);
+        get_block(block_hash);
         get_mempool();
         return height, block_hash;
     });
 }
 
-function height_id(block_hash) {
+/**
+ * Gets more detailed block data via the block hash from get_height
+ * Calls get_mempool() get_fees() and display_fees()
+ * @constructor
+ * @param {string} block_hash - the hash of the block data taken from get_height()
+ */
+function get_block(block_hash) {
     $.get("https://blockchain.info/rawblock/" + block_hash , '&cors=true', function(response, status) {
         let hash = block_hash;
         let ntxs = response['n_tx'];
         let size = response['size'];
         let hash_link = 'https://www.blockchain.com/btc/block/' + hash;
-        get_mempool();
-        get_fees();
-        display_fees();
         $('#id_link').removeClass('invisible').attr("href", hash_link);//show and link to block
         $('#id').text('Explore block ➡️');
         $('#spinner').remove();
         $('#txs_inblock').text('Includes: '+ ntxs +' transactions');
         $('#block_size').text('Block size: ' + size/1000 + ' kilobytes');
+        get_mempool();
+        get_fees();
+        display_fees();
         return id;
     });
 }
 
+/**
+ * Simply presents the most relevant fees
+ * @constructor
+ */
 function get_fees() {
     $.get("https://bitcoinfees.earn.com/api/v1/fees/recommended", '&cors=true', function(response, status) {
         let fee_data = response;
@@ -67,6 +91,10 @@ function get_fees() {
     });
 }
 
+/**
+ * Presents the mempool transaction count and size in kb with animation
+ * @constructor
+ */
 function get_mempool(){
     $.get("https://chain.api.btc.com/v3/tx/unconfirmed/summary", 'JSON' , function(response, status){
         let mempool_data = response['data'];
@@ -84,6 +112,11 @@ function get_mempool(){
     })
 }
 
+/**
+ * Refreshes fee table
+ * Gets whole fee list and appends each row to a responsive table
+ * @constructor
+ */
 function display_fees(){
     $.get("https://bitcoinfees.earn.com/api/v1/fees/list", 'JSON' , function(response, status){
         fees = response['fees'];
@@ -103,6 +136,10 @@ function display_fees(){
     });
 }
 
+/**
+ * Bootstrap notify settings & options
+ * @constructor
+ */
 function alert_success(message){
     $.notify({
         // options

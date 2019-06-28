@@ -60,7 +60,7 @@ function get_height(){
 
 /**
  * Gets more detailed block data via the block hash from get_height
- * Calls get_mempool() get_fees() and display_fees()
+ * Calls get_mempool()
  * @constructor
  * @param {string} block_hash - the hash of the block data taken from get_height()
  */

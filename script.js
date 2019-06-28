@@ -22,8 +22,13 @@ $('#id_link').addClass('invisible');
  */
 $( document ).ready(function() {
     get_height();
+    get_fees();
+    display_fees();
     alert_success('Got height!');
     setInterval(get_height,5000);
+    setInterval(get_fees,5000);
+    setInterval(display_fees,5000);
+
 });
 
 /**
@@ -71,8 +76,6 @@ function get_block(block_hash) {
         $('#txs_inblock').text('Includes: '+ ntxs +' transactions');
         $('#block_size').text('Block size: ' + size/1000 + ' kilobytes');
         get_mempool();
-        get_fees();
-        display_fees();
         return id;
     });
 }

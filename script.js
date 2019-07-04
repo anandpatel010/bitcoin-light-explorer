@@ -22,11 +22,11 @@ $('#id_link').addClass('invisible');
 $( document ).ready(function() {
     get_height();
     get_fees();
-    display_fees();
+    get_fee_table();
     alert_success('Got height!');
     setInterval(get_height,5000);
     setInterval(get_fees,5000);
-    setInterval(display_fees,5000);
+    setInterval(get_fee_table,5000);
 
 });
 
@@ -119,7 +119,7 @@ function get_mempool(){
  * Gets whole fee list and appends each row to a responsive table
  * @constructor
  */
-function display_fees(){
+function get_fee_table(){
     $.get("https://bitcoinfees.earn.com/api/v1/fees/list", 'JSON' , function(response, status){
         fees = response['fees'];
         //console.log(fees);

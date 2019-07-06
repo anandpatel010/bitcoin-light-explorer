@@ -93,6 +93,15 @@ function get_fees() {
     });
 }
 
+// jQuery cross domain ajax
+$.ajax({
+    type: "GET",
+    headers: {"Access-Control-Allow-Origin": ""},
+    url: "https://bitcoiner.live/api/fees/estimates/latest"
+}).done(function (data) {
+    console.log(data);
+});
+
 /**
  * Presents the mempool transaction count and size in kb with animation
  * @constructor

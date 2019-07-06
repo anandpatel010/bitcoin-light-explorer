@@ -25,8 +25,8 @@ $( document ).ready(function() {
     get_fee_table();
     alert_success('Got height!');
     setInterval(get_height,5000);
-    setInterval(get_fees,5000);
-    setInterval(get_fee_table,5000);
+    setInterval(get_fees,10000);
+    setInterval(get_fee_table,10000);
 
 });
 

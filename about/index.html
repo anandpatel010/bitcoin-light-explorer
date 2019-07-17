@@ -30,7 +30,7 @@
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light static-top">
     <div class="container">
-        <a class="navbar-brand" href="#">Bitcoin Light Explorer <span class="badge badge-warning">BETA</span></a>
+        <a class="navbar-brand" href="#">bitcoin Light Explorer <span class="badge badge-warning">BETA</span></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -64,10 +64,23 @@
         <div class="card card-signin my-5">
           <div class="card-body text-center">
             <h5 class="card-title text-center">About</h5>
+            <hr class="my-4">
             <p>This is an in development simple real time bitcoin explorer using <a href="https://btc.com/" target="_blank"><code>btc.com</code></a> for mempool info, <a href="https://www.blockchain.com/explorer" target="_blank"><code>blockchain.com</code></a> for block info and <a href="https://bitcoinfees.earn.com/api" target="_blank"><code>bitcoinfees.earn.com</code></a> for fee estimations (90% confidence).</p>
-            <p>I am inexperienced with js so it is highly likely improvements can be made. Please submit your issues and improvements to github :)</p>
+            <p>You can get a good idea of how long it will take a transaction to get 1 confirmation with a combination of the current sat/byte fee rate and the number of transactions in the mempool.</p>
+            <hr class="my-4">
+            <h5 class="card-title text-center">How do I use?</h5>
+            <hr class="my-4">
+            <p>Bitcoin uses satoshis per byte as a measurement of transaction fee. A satoshi is a 100 millionth of a bitcoin and your transaction is x bytes in size. The total fee is simply calculated as: <br><code>fee rate * size in bytes</code> </p>
+            <p>1 typical native segwit tx ≈ 141 vbytes </p>
+            <hr class="my-4">
             <a href="https://github.com/spookiestevie/bitcoin-light-explorer" target="_blank" class="btn btn-social-icon btn-lg btn-light">
               <span class="fab fa-github fa-lg"></span>
+            </a>
+            <a href="https://twitter.com/spookiestevie_" target="_blank" class="btn btn-social-icon btn-lg btn-light">
+              <span class="fab fa-twitter fa-lg"></span>
+            </a>
+            <a href="https://www.reddit.com/r/bitcoin/comments/c4cjpr/made_a_simple_page_for_mempool_stats_fee/" target="_blank" class="btn btn-social-icon btn-lg btn-light">
+              <span class="fab fa-reddit fa-lg"></span>
             </a>
               <hr class="my-4">
               Send ☕ to - 36vfMUx2a2fYtz2t7pWdx1b7wuLPFoSiZj

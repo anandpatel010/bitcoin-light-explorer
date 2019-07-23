@@ -47,6 +47,7 @@
             </ul>
           </div>
         </div>
+        <span id="btc-price"></span>
       </nav>
 
       <!-- Page Content -->
@@ -74,6 +75,7 @@
 
             <p id="txs_inblock" class="lead text-white-50"></p>
             <p id="block_size" class="lead text-white-50"></p>
+            <p id="hash_rate" class="lead text-white-50"></p>
           <br>
             <p id="display_tx" class="lead text-white-50"></p>
 
@@ -84,6 +86,7 @@
               <thead>
               <tr>
                   <th scope="col" data-toggle="tooltip" data-html="true" data-placement="top" title="The min-max fee rate.">sat/byte</th>
+                  <th scope="col" data-toggle="tooltip" data-html="true" data-placement="top" title="Estimated fiat cost of a 141 byte transaction in USD">≈$ cost</th>
                   <th scope="col" data-toggle="tooltip" data-html="true" data-placement="top" title="Number of confirmed transactions with this fee in the last 24 hours."># confirmed today</th>
                   <th scope="col" data-toggle="tooltip" data-html="true" data-placement="top" title="Number of unconfirmed transactions with this fee."># in mempool now</th>
                   <th scope="col" data-toggle="tooltip" data-html="true" data-placement="top" title="Estimated maximum delay (in blocks) until transaction is confirmed (90% confidence interval).">Max delay</th>

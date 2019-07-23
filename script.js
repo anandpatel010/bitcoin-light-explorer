@@ -13,6 +13,7 @@ $(function () {
 });
 
 $('#tx_table').hide();
+$('#hash_rate').hide();
 $('#id_link').addClass('invisible');
 
 /**
@@ -27,6 +28,8 @@ $( document ).ready(function() {
     setInterval(get_height,5000);
     setInterval(get_fees,10000);
     setInterval(get_fee_table,10000);
+    setInterval(get_price(),12000);
+
 
 });
 
@@ -72,11 +75,16 @@ function get_block(block_hash) {
         $('#id_link').removeClass('invisible').attr("href", hash_link);//show and link to block
         $('#id').text('Explore block ➡️');
         $('#spinner').remove();
+        $('#hash_rate').show();
         $('#txs_inblock').text('Includes: '+ ntxs +' transactions');
-        $('#block_size').text('Block size: ' + size/1000 + ' kilobytes');
+        $('#block_size').text('Block size: ' + (size/1000).toFixed(2) + ' kilobytes');
         get_mempool();
         return id;
     });
+    $.get("https://blockchain.info/q/hashrate", '&cors=true', function(response, status) {
+        $('#hash_rate').text('Network hash rate: ' + (response/1000000000).toFixed(2) + ' EH/s')
+    });
+
 }
 
 /**
@@ -87,9 +95,9 @@ function get_fees() {
     $.get("https://bitcoinfees.earn.com/api/v1/fees/recommended", '&cors=true', function(response, status) {
         let fee_data = response;
         //console.log(fee_data);
-        $('#fee1').text('fastest fee: '+ fee_data['fastestFee'] + ' sat/byte ');
-        $('#fee2').text('30min fee: '+ fee_data['halfHourFee'] + ' sat/byte ');
-        $('#fee3').text('1hr fee: '+ fee_data['hourFee' ] + ' sat/byte ');
+        $('#fee1').text('fastest fee: '+ fee_data['fastestFee'] + ' sat/byte $' + ((((fee_data['fastestFee']*141)/100000000)*BTCUSD).toFixed(2)));
+        $('#fee2').text('30min fee: '+ fee_data['halfHourFee'] + ' sat/byte $' + ((((fee_data['halfHourFee']*141)/100000000)*BTCUSD).toFixed(2)));
+        $('#fee3').text('1hr fee: '+ fee_data['hourFee'] + ' sat/byte $' + ((((fee_data['hourFee']*141)/100000000)*BTCUSD).toFixed(2)));
     });
 }
 
@@ -110,9 +118,22 @@ function get_mempool(){
         zeroconf_tx = '≈' + mempool_count + ' waiting txs';
         mempool_size = mempool_size/1000 + ' kb';
         $('#mempool_count').text(zeroconf_tx).addClass('animated fadeInRight');
-        $('#mempool_size').text(mempool_size).addClass('animated fadeInRight');
+        $('#mempool_size').text((parseFloat(mempool_size)).toFixed(2) + ' kb').addClass('animated fadeInRight');
     })
 }
+
+/**
+ * Price discovery in all currencies
+ * @constructor
+ */
+function get_price(){
+    $.get("https://blockchain.info/ticker" , '&cors=true', function(response, status) {
+        BTCUSD = response.USD.last;
+        $('#btc-price').text('$' + response.USD.last);
+        return BTCUSD;
+    });
+}
+
 
 /**
  * Refreshes fee table
@@ -128,6 +149,7 @@ function get_fee_table(){
         for (let fee in fees) {
             $('#tx_table tbody').before('<tr class="table-light">\n' +
                 '<th scope="row">'+ fees[fee].minFee + ' - ' + fees[fee].maxFee +'</th>\n' +
+                '<td>' + (((((fees[fee].minFee + fees[fee].maxFee)/2)*141)/100000000)*BTCUSD).toFixed(2) + '</td>\n' +
                 '<td>' + (fees[fee].dayCount) + '</td>\n' +
                 '<td>' + (fees[fee].memCount) + '</td>\n' +
                 '<td>' + (fees[fee].maxDelay) + '</td>\n' +

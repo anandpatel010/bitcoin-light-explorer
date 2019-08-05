@@ -14,6 +14,8 @@ $(function () {
 
 $('#tx_table').hide();
 $('#hash_rate').hide();
+$('#halving').hide();
+$('#countdown').hide();
 $('#id_link').addClass('invisible');
 
 /**
@@ -24,11 +26,13 @@ $( document ).ready(function() {
     get_height();
     get_fees();
     get_fee_table();
+    get_halving();
     alert_success('Got height!');
     setInterval(get_height,5000);
     setInterval(get_fees,10000);
     setInterval(get_fee_table,10000);
     setInterval(get_price(),12000);
+    setInterval(get_halving(),1800000);
 
 
 });
@@ -61,6 +65,19 @@ function get_height(){
 }
 
 /**
+ * Gets halving data from blockchair
+ * @constructor
+ */
+function get_halving(){
+    $.get("https://api.blockchair.com/bitcoin/stats" , '&cors=true', function(response, status) {
+        seconds_to_halving = response.data.countdowns[0].time_left;
+        days_to_halving = (seconds_to_halving/60/60/24);
+        console.log(days_to_halving);
+        $('#countdown').text(days_to_halving.toFixed(1));
+    });
+}
+
+/**
  * Gets more detailed block data via the block hash from get_height
  * Calls get_mempool()
  * @constructor
@@ -76,6 +93,8 @@ function get_block(block_hash) {
         $('#id').text('Explore block ➡️');
         $('#spinner').remove();
         $('#hash_rate').show();
+        $('#halving').show();
+        $('#countdown').show();
         $('#txs_inblock').text('Includes: '+ ntxs +' transactions');
         $('#block_size').text('Block size: ' + (size/1000).toFixed(2) + ' kilobytes');
         get_mempool();

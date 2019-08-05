@@ -41,6 +41,7 @@ $( document ).ready(function() {
  * Checks for new chain height
  * If true: will update, call get_block and do fancy animation.
  * Sets the new text for the received data and calls get_mempool()
+ * Exec time: 3ms
  * @constructor
  */
 function get_height(){
@@ -66,6 +67,7 @@ function get_height(){
 
 /**
  * Gets more detailed block data via the block hash from get_height
+ * Exec time: 2ms
  * @constructor
  * @param {string} block_hash - the hash of the block data taken from get_height()
  */
@@ -93,6 +95,7 @@ function get_block(block_hash) {
 
 /**
  * Simply presents the most relevant fees
+ * Exec time: 4ms
  * @constructor
  */
 function get_fees() {
@@ -107,6 +110,7 @@ function get_fees() {
 
 /**
  * Presents the mempool transaction count and size in kb with animation
+ * Exec time: 4ms
  * @constructor
  */
 function get_mempool(){
@@ -128,6 +132,7 @@ function get_mempool(){
 
 /**
  * Price discovery in all currencies
+ * Exec time: 6ms
  * @constructor
  */
 function get_price(){
@@ -141,6 +146,7 @@ function get_price(){
 
 /**
  * Gets halving data from blockchair and presents price % change, kinda innaccurate
+ * Exec time: 5ms
  * @constructor
  */
 function get_halving(){
@@ -164,6 +170,7 @@ function get_halving(){
 /**
  * Refreshes fee table
  * Gets whole fee list and appends each row to a responsive table
+ * Exec time: 3ms
  * @constructor
  */
 function get_fee_table(){

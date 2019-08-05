@@ -65,7 +65,7 @@ function get_height(){
 }
 
 /**
- * Gets halving data from blockchair
+ * Gets halving data from blockchair and presents price % change
  * @constructor
  */
 function get_halving(){

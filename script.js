@@ -72,7 +72,6 @@ function get_halving(){
     $.get("https://api.blockchair.com/bitcoin/stats" , '&cors=true', function(response, status) {
         seconds_to_halving = response.data.countdowns[0].time_left;
         days_to_halving = (seconds_to_halving/60/60/24);
-        console.log(days_to_halving);
         $('#countdown').text(days_to_halving.toFixed(1));
     });
 }

@@ -33,14 +33,14 @@ $( document ).ready(function() {
     setInterval(get_fee_table,10000);
     setInterval(get_price(),12000);
     setInterval(get_halving(),12000);
-
+    setInterval(get_mempool(),1000);
 
 });
 
 /**
  * Checks for new chain height
- * If true: will update and call get_block and do fancy animation.
- * Sets the new text for the received data does recursion and calls get_mempool()
+ * If true: will update, call get_block and do fancy animation.
+ * Sets the new text for the received data and calls get_mempool()
  * @constructor
  */
 function get_height(){
@@ -58,36 +58,14 @@ function get_height(){
         } //else?
         $('#height').text(height); //get height value
         $('#words').text(numberToWords.toWords(height) + ' blocks');
-        get_block(block_hash);
         get_mempool();
         return height, block_hash;
     });
 }
 
-/**
- * Gets halving data from blockchair and presents price % change
- * @constructor
- */
-function get_halving(){
-    $.get("https://api.blockchair.com/bitcoin/stats" , '&cors=true', function(response, status) {
-        day_hr_change = response.data.market_price_usd_change_24h_percentage;
-        seconds_to_halving = response.data.countdowns[0].time_left;
-        days_to_halving = (seconds_to_halving/60/60/24).toFixed(1);
-        $('#countdown').html('in <span id="days" class="badge badge-light"></span> days');
-        $('#days').text(days_to_halving);
-        if (day_hr_change > 0) {
-            $('#24_hr_change').html('<small><span id="change" class="text-success"></span></small>');
-            $('#change').text(' +' + day_hr_change + '%');
-        }else{
-            $('#24_hr_change').html('<small><span id="change" class="text-danger"></span></small>');
-            $('#change').text(' -' + day_hr_change + '%');
-        }
-    });
-}
 
 /**
  * Gets more detailed block data via the block hash from get_height
- * Calls get_mempool()
  * @constructor
  * @param {string} block_hash - the hash of the block data taken from get_height()
  */
@@ -105,7 +83,6 @@ function get_block(block_hash) {
         $('#countdown').show();
         $('#txs_inblock').text('Includes: '+ ntxs +' transactions');
         $('#block_size').text('Block size: ' + (size/1000).toFixed(2) + ' kilobytes');
-        get_mempool();
         return id;
     });
     $.get("https://blockchain.info/q/hashrate", '&cors=true', function(response, status) {
@@ -158,6 +135,28 @@ function get_price(){
         BTCUSD = response.USD.last;
         $('#btc-price').text('$' + response.USD.last);
         return BTCUSD;
+    });
+}
+
+
+/**
+ * Gets halving data from blockchair and presents price % change, kinda innaccurate
+ * @constructor
+ */
+function get_halving(){
+    $.get("https://api.blockchair.com/bitcoin/stats" , '&cors=true', function(response, status) {
+        day_hr_change = response.data.market_price_usd_change_24h_percentage;
+        seconds_to_halving = response.data.countdowns[0].time_left;
+        days_to_halving = (seconds_to_halving/60/60/24).toFixed(1);
+        $('#countdown').html('in <span id="days" class="badge badge-light"></span> days');
+        $('#days').text(days_to_halving);
+        if (day_hr_change > 0) {
+            $('#24_hr_change').html('<small><span id="change" class="text-success"></span></small>');
+            $('#change').text(' +' + day_hr_change + '%');
+        }else{
+            $('#24_hr_change').html('<small><span id="change" class="text-danger"></span></small>');
+            $('#change').text(' -' + day_hr_change + '%');
+        }
     });
 }
 

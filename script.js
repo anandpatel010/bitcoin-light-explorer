@@ -71,8 +71,10 @@ function get_height(){
 function get_halving(){
     $.get("https://api.blockchair.com/bitcoin/stats" , '&cors=true', function(response, status) {
         seconds_to_halving = response.data.countdowns[0].time_left;
-        days_to_halving = (seconds_to_halving/60/60/24);
-        $('#countdown').text(days_to_halving.toFixed(1));
+        days_to_halving = (seconds_to_halving/60/60/24).toFixed(1);
+        $('#countdown').html('in <span id="days" class="badge badge-light"></span> days');
+        $('#days').text(days_to_halving);
+
     });
 }
 

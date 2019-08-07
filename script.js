@@ -1,5 +1,4 @@
 //TODO
-// INCLUDE TIME SINCE LAST BLOCK
 // ADD DATATABLE FUNCTIONALITY TO FEE TABLE
 // GIVE ERROR & WARNING FUNCTIONALITY
 
@@ -28,12 +27,11 @@ $( document ).ready(function() {
     get_fee_table();
     get_halving();
     alert_success('Got height!');
-    setInterval(get_height,5000);
+    setInterval(get_height,1000);
     setInterval(get_fees,10000);
     setInterval(get_fee_table,10000);
     setInterval(get_price(),12000);
     setInterval(get_halving(),12000);
-    setInterval(get_mempool(),1000);
 
 });
 
@@ -41,14 +39,16 @@ $( document ).ready(function() {
  * Checks for new chain height
  * If true: will update, call get_block and do fancy animation.
  * Sets the new text for the received data and calls get_mempool()
- * Exec time: 3ms
+ * Exec time: 3ms**
  * @constructor
  */
 function get_height(){
     $.get("https://blockchain.info/latestblock" , '&cors=true', function(response, status) {
         let block_data = response;
-        //console.log(block_data);
         $('#height').removeClass('animated rollIn');
+        let mtimenow = Date.now();
+        let mblocktime = block_data['time'] +'000';
+        time_since_block  = Math.round((mtimenow-mblocktime)/1000);
         let height = block_data["height"];
         let block_hash = block_data["hash"];
         let displayed_height = document.getElementById("height").innerHTML;
@@ -58,6 +58,7 @@ function get_height(){
             $('#height').addClass('animated rollIn');//animate only on change
         } //else?
         $('#height').text(height); //get height value
+        $('#time').text(time_since_block + 's ago');
         $('#words').text(numberToWords.toWords(height) + ' blocks');
         get_mempool();
         return height, block_hash;

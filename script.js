@@ -151,7 +151,7 @@ function get_price(){
  * @constructor
  */
 function get_halving(){
-    $.get("https://api.blockchair.com/bitcoin/stats" , '&cors=true', function(response, status) {
+    $.get("https://api.blockchair.com/bitcoin/stats" , function(response, status) {
         day_hr_change = response.data.market_price_usd_change_24h_percentage;
         seconds_to_halving = response.data.countdowns[0].time_left;
         days_to_halving = (seconds_to_halving/60/60/24).toFixed(1);

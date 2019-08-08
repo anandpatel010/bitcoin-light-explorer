@@ -152,17 +152,17 @@ function get_price(){
  */
 function get_halving(){
     $.get("https://api.blockchair.com/bitcoin/stats" , function(response, status) {
-        day_hr_change = response.data.market_price_usd_change_24h_percentage;
+        day_change = Math.round(response.data.market_price_usd_change_24h_percentage* 100)/100;
         seconds_to_halving = response.data.countdowns[0].time_left;
         days_to_halving = (seconds_to_halving/60/60/24).toFixed(1);
         $('#countdown').html('in <span id="days" class="badge badge-light"></span> days');
         $('#days').text(days_to_halving);
-        if (day_hr_change > 0) {
+        if (day_change > 0) {
             $('#24_hr_change').html('<small><span id="change" class="text-success"></span></small>');
-            $('#change').text(' +' + day_hr_change + '%');
+            $('#change').text('+' + day_change + '%');
         }else{
             $('#24_hr_change').html('<small><span id="change" class="text-danger"></span></small>');
-            $('#change').text(' -' + day_hr_change + '%');
+            $('#change').text('-' + day_change + '%');
         }
     });
 }

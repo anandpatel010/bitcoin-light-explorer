@@ -57,7 +57,7 @@
           <h1 id="height" class="font-weight-light mt-4 text-white font-weight-bold">0</h1>
           <span id="time" class="badge badge-light"></span>
           <p id="words" class="lead text-white"></p>
-          <a href="https://www.smartbit.com.au/txs" target="_blank" class="btn btn-light" data-toggle="tooltip" data-html="true" data-placement="left" title="This is an <b>approximate</b> value because all nodes in the bitcoin network can have <b>different transactions</b> in their mempool">
+          <a href="https://blockchair.com/bitcoin/mempool/transactions" target="_blank" class="btn btn-light" data-toggle="tooltip" data-html="true" data-placement="left" title="This is an <b>approximate</b> value because all nodes in the bitcoin network can have <b>different transactions</b> in their mempool">
               <span id="mempool_spinner" class="spinner-border text-dark spinner-border-sm" role="status" aria-hidden="true"></span>
               <span class="font-weight-bold" id="mempool_count"></span> <span id="mempool_size" class="badge badge-secondary"></span>
           </a>
@@ -68,6 +68,9 @@
 
           <a id="id_link" target="_blank" class="btn btn-light">
             <span id="id" class="lead text-black"></span>
+          </a>
+          <a id="largest_tx" target="_blank" class="btn btn-light">
+              <span id="largest_tx_hash" class="lead text-black"></span>
           </a>
           <p id="id" class="lead text-white"></p>
           <div id="spinner" class="spinner-border m-5 text-light" role="status">

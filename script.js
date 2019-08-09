@@ -16,6 +16,7 @@ $('#hash_rate').hide();
 $('#halving').hide();
 $('#countdown').hide();
 $('#id_link').addClass('invisible');
+$('#largest_tx').addClass('invisible');
 
 /**
  * On document ready, call continuous method get_height() and notify of page load
@@ -48,7 +49,7 @@ function get_height(){
         $('#height').removeClass('animated rollIn');
         let mtimenow = Date.now();
         let mblocktime = block_data['time'] +'000';
-        time_since_block  = Math.round((mtimenow-mblocktime)/1000);
+        let time_since_block = Math.round((mtimenow - mblocktime) / 1000);
         let height = block_data["height"];
         let block_hash = block_data["hash"];
         let displayed_height = document.getElementById("height").innerHTML;
@@ -77,9 +78,9 @@ function get_block(block_hash) {
         let hash = block_hash;
         let ntxs = response['n_tx'];
         let size = response['size'];
-        let hash_link = 'https://www.blockchain.com/btc/block/' + hash;
+        let hash_link = 'https://blockchair.com/bitcoin/block/' + hash;
         $('#id_link').removeClass('invisible').attr("href", hash_link);//show and link to block
-        $('#id').text('Explore block ➡️');
+        $('#id').text('⬅️ Explore latest block');
         $('#spinner').remove();
         $('#hash_rate').show();
         $('#halving').show();
@@ -152,9 +153,11 @@ function get_price(){
  */
 function get_halving(){
     $.get("https://api.blockchair.com/bitcoin/stats" , function(response, status) {
+        console.log(response.data.largest_transaction_24h);
         day_change = Math.round(response.data.market_price_usd_change_24h_percentage* 100)/100;
         seconds_to_halving = response.data.countdowns[0].time_left;
         days_to_halving = (seconds_to_halving/60/60/24).toFixed(1);
+        largest_tx = response.data.largest_transaction_24h;
         $('#countdown').html('in <span id="days" class="badge badge-light"></span> days');
         $('#days').text(days_to_halving);
         if (day_change > 0) {
@@ -162,8 +165,10 @@ function get_halving(){
             $('#change').text('+' + day_change + '%');
         }else{
             $('#24_hr_change').html('<small><span id="change" class="text-danger"></span></small>');
-            $('#change').text('-' + day_change + '%');
+            $('#change').text(day_change + '%');
         }
+        $('#largest_tx').removeClass('invisible').attr("href", 'https://blockchair.com/bitcoin/transaction/'+largest_tx.hash);//show and link to block
+        $('#largest_tx_hash').text("👀 $" + response.data.largest_transaction_24h.value_usd.toString().match(/.{1,3}/g) + " tx ➡️");
     });
 }
 

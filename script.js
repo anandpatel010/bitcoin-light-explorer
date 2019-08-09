@@ -80,6 +80,7 @@ function get_block(block_hash) {
         let size = response['size'];
         let hash_link = 'https://blockchair.com/bitcoin/block/' + hash;
         $('#id_link').removeClass('invisible').attr("href", hash_link);//show and link to block
+        $('#largest_tx').removeClass('invisible')
         $('#id').text('⬅️ Explore latest block');
         $('#spinner').remove();
         $('#hash_rate').show();
@@ -167,7 +168,7 @@ function get_halving(){
             $('#24_hr_change').html('<small><span id="change" class="text-danger"></span></small>');
             $('#change').text(day_change + '%');
         }
-        $('#largest_tx').removeClass('invisible').attr("href", 'https://blockchair.com/bitcoin/transaction/'+largest_tx.hash);//show and link to block
+        $('#largest_tx').attr("href", 'https://blockchair.com/bitcoin/transaction/'+largest_tx.hash);//show and link to block
         $('#largest_tx_hash').text("👀 $" + response.data.largest_transaction_24h.value_usd.toString().match(/.{1,3}/g) + " tx ➡️");
     });
 }

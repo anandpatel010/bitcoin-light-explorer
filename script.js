@@ -169,7 +169,7 @@ function get_halving(){
             $('#change').text(day_change + '%');
         }
         $('#largest_tx').attr("href", 'https://blockchair.com/bitcoin/transaction/'+largest_tx.hash);//show and link to block
-        $('#largest_tx_hash').text("👀 $" + response.data.largest_transaction_24h.value_usd.toString().match(/.{1,3}/g) + " tx ➡️");
+        $('#largest_tx_hash').text("👀 $" + Math.round(response.data.largest_transaction_24h.value_usd/1000000) + "m tx ➡️");
     });
 }
 

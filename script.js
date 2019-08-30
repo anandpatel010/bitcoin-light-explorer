@@ -53,32 +53,16 @@ function get_height(){
         let height = block_data["height"];
         let block_hash = block_data["hash"];
         let displayed_height = document.getElementById("height").innerHTML;
+        let ntxs = block_data['transaction_count'];
+        let size = block_data['size'];
+        let hash_link = 'https://blockchair.com/bitcoin/block/' + block_hash;
         if (parseInt(displayed_height) < parseInt(height)) {
             alert_info('New block');
-            get_block(block_hash);
             $('#height').addClass('animated rollIn');//animate only on change
         } //else?
-        $('#height').text(height); //get height value
+        $('#height').text(height); //set height value
         $('#time').text(time_since_block + 's ago');
         $('#words').text(numberToWords.toWords(height) + ' blocks');
-        get_mempool();
-        return height, block_hash;
-    });
-}
-
-
-/**
- * Gets more detailed block data via the block hash from get_height
- * Exec time: 2ms
- * @constructor
- * @param {string} block_hash - the hash of the block data taken from get_height()
- */
-function get_block(block_hash) {
-    $.get("https://blockchain.info/rawblock/" + block_hash , '&cors=true', function(response, status) {
-        let hash = block_hash;
-        let ntxs = response['n_tx'];
-        let size = response['size'];
-        let hash_link = 'https://blockchair.com/bitcoin/block/' + hash;
         $('#id_link').removeClass('invisible').attr("href", hash_link);//show and link to block
         $('#largest_tx').removeClass('invisible')
         $('#id').text('⬅️ Explore latest block');
@@ -88,13 +72,13 @@ function get_block(block_hash) {
         $('#countdown').show();
         $('#txs_inblock').text('Includes: '+ ntxs +' transactions');
         $('#block_size').text('Block size: ' + (size/1000).toFixed(2) + ' kilobytes');
-        return id;
     });
     $.get("https://blockchain.info/q/hashrate", '&cors=true', function(response, status) {
         $('#hash_rate').text('Network hash rate: ' + (response/1000000000).toFixed(2) + ' EH/s')
     });
-
+        get_mempool();
 }
+
 
 /**
  * Simply presents the most relevant fees
@@ -154,7 +138,6 @@ function get_price(){
  */
 function get_halving(){
     $.get("https://api.blockchair.com/bitcoin/stats" , function(response, status) {
-        console.log(response.data.largest_transaction_24h);
         day_change = Math.round(response.data.market_price_usd_change_24h_percentage* 100)/100;
         seconds_to_halving = response.data.countdowns[0].time_left;
         days_to_halving = (seconds_to_halving/60/60/24).toFixed(1);

@@ -44,11 +44,11 @@ $( document ).ready(function() {
  * @constructor
  */
 function get_height(){
-    $.get("https://blockchain.info/latestblock" , '&cors=true', function(response, status) {
-        let block_data = response;
+    $.get("https://api.smartbit.com.au/v1/blockchain/blocks?limit=1&sort=height&dir=desc" , '&cors=true', function(response, status) {
+        let block_data = response['blocks'][0];
         $('#height').removeClass('animated rollIn');
         let mtimenow = Date.now();
-        let mblocktime = block_data['time'] +'000';
+        let mblocktime = block_data['first_seen'] + '000';
         let time_since_block = Math.round((mtimenow - mblocktime) / 1000);
         let height = block_data["height"];
         let block_hash = block_data["hash"];

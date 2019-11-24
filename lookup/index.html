@@ -25,12 +25,12 @@
         gtag('config', 'UA-135996748-2');
     </script>
 </head>
-<body style="background: linear-gradient(to left, #0062E6, #33AEFF);">
+<body style="background: linear-gradient(to right, #54002b, #104a80);">
 
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light static-top">
     <div class="container">
-        <a class="navbar-brand" href="#">Bitcoin Light Explorer <span class="badge badge-warning">BETA</span></a>
+        <a class="navbar-brand" href="#">Bitcoin Light Explorer <span class="badge badge-dark">BETA</span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -40,12 +40,12 @@
                     <a class="nav-link" href="../">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" target="_blank" href="https://mempool.space/tv">Advanced</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="lookup/">Lookup
+                    <a class="nav-link active" href="#">Lookup
                         <span class="sr-only">(current)</span>
                     </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" target="_blank" href="https://mempool.space/tv">Advanced</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="../about/">About</a>
@@ -62,29 +62,27 @@
         <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
             <div class="card card-signin my-5">
                 <div class="card-body text-center">
-                    <h5 class="card-title text-center">Lookup</h5>
+                    <h5 class="card-title text-center">Lookup Balance</h5>
                     <hr class="my-4">
-
+                    This site does <b>NOT</b> violate your privacy by logging addresses entered into the page. Stay safe friends 🙂
                     <div class="form-group">
                         <label for="input"></label>
                         <input class="form-control" id="input" placeholder="Enter btc address">
                         <br>
-                        <button type="button" class="btn btn-block btn-primary text-uppercase" onclick="button_click()">
+                        <button type="button" class="btn btn-block btn-outline-dark text-uppercase" onclick="button_click()">
                             LOOKUP
                         </button>
                         <br>
                         <h4 id="balance"></h4>
                         <div id="txs">
-
                         </div>
-
                     </div>
-
                     <hr class="my-4">
-                    <a href="https://github.com/spookiestevie/bitcoin-light-explorer" target="_blank" class="btn btn-social-icon btn-lg btn-light">
-                        <span class="fab fa-github fa-lg"></span>
-                    </a>
-                    mewn sewn 🙂
+                    Send ☕ to:
+                    <br>
+                    <code>36vfMUx2a2fYtz2t7pWdx1b7wuLPFoSiZj</code>
+                    <br>
+                    🙂
                 </div>
             </div>
         </div>
@@ -98,14 +96,14 @@
         $.get("https://api.blockchair.com/bitcoin/dashboards/addresses/" + input , function(response, status) {
             let address = response.data.addresses;
             let txs = response.data.transactions;
-            console.log(txs)
+            console.log(txs);
             for(var key in address) {
                 var value = address[key];
             }
-            $('#balance').text(value.balance/100000000);
+            $('#balance').text(value.balance/100000000 + ' BTC');
 
             for (tx in txs) {
-                $('#txs').append('<a id="'+ tx +'" href="#"><p>' + txs[tx].substring(0,40) + '...' + '</p></a>')
+                $('#txs').append('<a id="'+ tx +'" href="#"><p>' + txs[tx].substring(0,40) + '...' + '</p></a>');
                 $('#' + tx).attr("href", "https://blockchair.com/bitcoin/transaction/" + txs[tx]);
             }
         });
@@ -116,10 +114,6 @@
 <script src="../vendor/jquery/jquery.min.js"></script>
 <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="../vendor/bootstrap-notify-3.1.3/dist/bootstrap-notify.js"></script>
-
-<!-- main -->
-<script type="text/javascript" src="script.js"></script>
-
 
 </body>
 

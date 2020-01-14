@@ -57,14 +57,14 @@ function get_height(){
         let size = block_data['size'];
         let hash_link = 'https://blockchair.com/bitcoin/block/' + block_hash;
         if (parseInt(displayed_height) < parseInt(height)) {
-            alert_info('New block');
+            alert_info(height);
             $('#height').addClass('animated rollIn');//animate only on change
         } //else?
         $('#height').text(height); //set height value
         $('#time').text(time_since_block + 's ago');
         $('#words').text(numberToWords.toWords(height) + ' blocks');
         $('#id_link').removeClass('invisible').attr("href", hash_link);//show and link to block
-        $('#largest_tx').removeClass('invisible')
+        $('#largest_tx').removeClass('invisible');
         $('#id').text('⬅️ Explore latest block');
         $('#spinner').remove();
         $('#hash_rate').show();
@@ -214,14 +214,14 @@ function alert_info(message){
     $.notify({
         // options
         //icon: 'glyphicon glyphicon-warning-sign',
-        title: 'Info: ',
+        title: 'New Block: ',
         message: message
     },{
         // settings
         type: 'info',
         allow_dismiss: false,
         newest_on_top: false,
-        delay: 5000,
+        delay: 10000,
         placement: {
             from: "bottom",
             align: "right"

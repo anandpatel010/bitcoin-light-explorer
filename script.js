@@ -28,6 +28,7 @@ $( document ).ready(function() {
     get_fee_table();
     get_halving();
     alert_success('Got height!');
+    notify_sound();
     setInterval(get_height,1000);
     setInterval(get_fees,10000);
     setInterval(get_fee_table,10000);
@@ -58,6 +59,7 @@ function get_height(){
         let hash_link = 'https://blockchair.com/bitcoin/block/' + block_hash;
         if (parseInt(displayed_height) < parseInt(height)) {
             alert_info(height);
+            notify_sound();
             $('#height').addClass('animated rollIn');//animate only on change
         } //else?
         $('#height').text(height); //set height value
@@ -183,7 +185,12 @@ function get_fee_table(){
     });
 }
 
-/**
+function notify_sound() {
+    var x = document.getElementById("myAudio");
+    x.play();
+}
+
+    /**
  * Bootstrap notify settings & options
  * @constructor
  */

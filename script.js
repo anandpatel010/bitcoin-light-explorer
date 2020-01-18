@@ -18,6 +18,7 @@ $('#countdown').hide();
 $('#id_link').addClass('invisible');
 $('#largest_tx').addClass('invisible');
 
+
 /**
  * On document ready, call continuous method get_height() and notify of page load
  * @constructor
@@ -36,6 +37,7 @@ $( document ).ready(function() {
     setInterval(get_halving(),12000);
 
 });
+
 
 /**
  * Checks for new chain height
@@ -96,6 +98,7 @@ function get_fees() {
         $('#fee3').text('1hr fee: '+ fee_data['hourFee'] + ' sat/byte $' + ((((fee_data['hourFee']*141)/100000000)*BTCUSD).toFixed(2)));
     });
 }
+
 
 /**
  * Presents the mempool transaction count and size in kb with animation
@@ -185,6 +188,10 @@ function get_fee_table(){
     });
 }
 
+/**
+ * Notify sound function
+ * @constructor
+ */
 function notify_sound() {
     var x = document.getElementById("myAudio");
     x.play();

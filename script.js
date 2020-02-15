@@ -28,7 +28,7 @@ $( document ).ready(function() {
     get_fees();
     get_fee_table();
     get_halving();
-    alert_success('Got height!');
+    //alert_success('Got height!');
     notify_sound();
     setInterval(get_height,1000);
     setInterval(get_fees,10000);
@@ -202,96 +202,11 @@ function notify_sound() {
  * @constructor
  */
 function alert_success(message){
-    $.notify({
-        // options
-        //icon: 'glyphicon glyphicon-warning-sign',
-        title: 'Success: ',
-        message: message
-    },{
-        // settings
-        type: 'success',
-        allow_dismiss: false,
-        newest_on_top: false,
-        delay: 5000,
-        placement: {
-            from: "bottom",
-            align: "right"
-        },
-        animate: {
-            enter: 'animated bounceIn',
-            exit: 'animated bounceOut'
-        }
-    });
+    $('#toast_text').text(message);
+    $('.toast').toast('show');
 }
 
 function alert_info(message){
-    $.notify({
-        // options
-        //icon: 'glyphicon glyphicon-warning-sign',
-        title: 'New Block: ',
-        message: message
-    },{
-        // settings
-        type: 'info',
-        allow_dismiss: false,
-        newest_on_top: false,
-        delay: 10000,
-        placement: {
-            from: "bottom",
-            align: "right"
-        },
-        animate: {
-            enter: 'animated bounceIn',
-            exit: 'animated bounceOut'
-        }
-    });
-}
-
-function alert_error(message){
-    $.notify({
-        // options
-        //icon: 'glyphicon glyphicon-warning-sign',
-        title: 'Error: ',
-        message: message
-    },{
-        // settings
-        type: 'danger',
-        allow_dismiss: false,
-        newest_on_top: false,
-        delay: 5000,
-        placement: {
-            from: "bottom",
-            align: "right"
-        },
-        animate: {
-            enter: 'animated bounceIn',
-            exit: 'animated bounceOut'
-        }
-    });
-}
-
-function alert_warning(message){
-    warning = $.notify({
-        // options
-        //icon: 'vendor/img/spinner.gif',
-        title: '<div class="spinner-border spinner-border-sm" role="status">\n' +
-            '  <span class="sr-only"></span>\n' +
-            '</div>',
-        message: message
-    }, {
-        // settings
-        type: 'warning',
-        allow_dismiss: false,
-        newest_on_top: false,
-        delay: 30000,
-        //icon_type: 'image',
-        placement: {
-            from: "bottom",
-            align: "right"
-        },
-        animate: {
-            enter: 'animated bounceIn',
-            exit: 'animated bounceOut'
-        }
-    });
+    $('#toast_text').text("New block: " + message + " mined recently!");
+    $('.toast').toast('show');
 }

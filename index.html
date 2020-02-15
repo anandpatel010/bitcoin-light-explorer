@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <link rel="shortcut icon" type="image/png" href="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/microsoft/153/right-pointing-magnifying-glass_1f50e.png"/>
+  <link rel="shortcut icon" type="image/png" href="https://assets.coingecko.com/coins/images/1/small/bitcoin.png"/>
   <title>Bitcoin Light Explorer - Home</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <!-- Bootstrap core CSS -->
@@ -24,11 +24,13 @@
   </script>
 </head>
 <body style="background: linear-gradient(to right, #54002b, #104a80);">
-
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light static-top">
     <div class="container">
-        <a class="navbar-brand" href="#">Bitcoin Light Explorer <span class="badge badge-dark">BETA</span></a>
+    <a class="navbar-brand" href="#">
+        <img src="https://assets.coingecko.com/coins/images/1/small/bitcoin.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        Bitcoin Light Explorer
+    </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -52,7 +54,19 @@
         </div>
         <span id="btc-price"></span><span id="24_hr_change"></span>
       </nav>
-
+      <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="8000" style="position: absolute; top: 7%; right: 1%;">
+          <div class="toast-header">
+              <img src="https://assets.coingecko.com/coins/images/1/small/bitcoin.png" width="23" height="23" class="rounded mr-2" alt="...">
+              <strong class="mr-auto">Notification</strong>
+              <small>now</small>
+              <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="toast-body">
+              <span id="toast_text"></span>
+          </div>
+      </div>
       <!-- Page Content -->
   <div class="container">
     <div class="row">
@@ -116,7 +130,7 @@
   </div>
 
   <audio id="myAudio">
-      <source src="vendor\sounds\when.mp3" type="audio/mpeg">
+      <source src="vendor/sounds/when.mp3" type="audio/mpeg">
       Your browser does not support the audio element.
   </audio>
   <!-- Bootstrap core JavaScript -->
@@ -124,8 +138,6 @@
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- main -->
   <script type="text/javascript" src="script.js"></script>
-  <!-- Bootstrap notify JavaScript -->
-  <script type="text/javascript" src="vendor/bootstrap-notify-3.1.3/dist/bootstrap-notify.js"></script>
   <!-- numberToWords -->
   <script type="text/javascript" src="vendor/numberToWords/numberToWords.min.js"></script>
 

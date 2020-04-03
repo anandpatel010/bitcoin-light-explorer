@@ -75,7 +75,7 @@ function get_height(){
         $('#halving').show();
         $('#countdown').show();
         $('#txs_inblock').text('Includes: '+ ntxs +' transactions');
-        $('#block_size').text('Block size: ' + (size/1000).toFixed(2) + ' kilobytes');
+        $('#block_size').text('Block size: ' + (size/1000**2).toFixed(2) + ' megabytes');
     });
     $.get("https://blockchain.info/q/hashrate", '&cors=true', function(response, status) {
         $('#hash_rate').text('Network hash rate: ' + (response/1000000000).toFixed(2) + ' EH/s')

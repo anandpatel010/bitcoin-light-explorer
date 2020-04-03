@@ -81,6 +81,7 @@ function get_height(){
         $('#hash_rate').text('Network hash rate: ' + (response/1000000000).toFixed(2) + ' EH/s')
     });
         get_mempool();
+        get_price();
 }
 
 

@@ -69,7 +69,7 @@ function get_height(){
         $('#words').text(numberToWords.toWords(height) + ' blocks');
         $('#id_link').removeClass('invisible').attr("href", hash_link);//show and link to block
         $('#largest_tx').removeClass('invisible');
-        $('#id').text('⬅️ Explore latest block');
+        $('#id').text('⬅️ Latest block');
         $('#spinner').remove();
         $('#hash_rate').show();
         $('#halving').show();

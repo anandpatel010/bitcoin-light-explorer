@@ -63,6 +63,10 @@ function get_height(){
             alert_info(height);
             notify_sound();
             $('#height').addClass('animated rollIn');//animate only on change
+            //halving animation
+            if (parseInt(height) % 210000 === 0){
+                confetti.start();
+            }
         } //else?
         $('#height').text(height); //set height value
         $('#time').text(time_since_block + 's ago');

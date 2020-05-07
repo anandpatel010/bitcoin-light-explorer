@@ -65,6 +65,7 @@ function get_height(){
             $('#height').addClass('animated rollIn');//animate only on change
             //halving animation
             if (parseInt(height) % 210000 === 0){
+                alert_halving();
                 confetti.start();
             }
         } //else?
@@ -224,5 +225,10 @@ function alert_success(message){
 
 function alert_info(message){
     $('#toast_text').text("New block: " + message + " mined recently!");
+    $('.toast').toast('show');
+}
+
+function alert_halving(){
+    $('#toast_text').text("Congratulations, Welcome to the new reward era, great wealth awaits you.");
     $('.toast').toast('show');
 }

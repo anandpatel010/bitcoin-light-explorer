@@ -142,7 +142,7 @@ function get_price(){
 
 
 /**
- * Gets halving data from blockchair and presents price % change, kinda innaccurate
+ * Gets halving data from blockchair and presents price % change and difficulty retarget estimate
  * Exec time: 5ms
  * @constructor
  */
@@ -152,6 +152,10 @@ function get_halving(){
         seconds_to_halving = response.data.countdowns[0].time_left;
         days_to_halving = (seconds_to_halving/60/60/24).toFixed(1);
         largest_tx = response.data.largest_transaction_24h;
+        difficulty = response.data.difficulty;
+        est_difficulty = response.data.next_difficulty_estimate;
+        pct_change_difficulty = (((est_difficulty-difficulty)/difficulty)*100).toFixed(2);
+        console.log(pct_change_difficulty);
         $('#countdown').html('in <span id="days" class="badge badge-light"></span> days');
         $('#days').text(days_to_halving);
         if (day_change > 0) {
@@ -163,6 +167,13 @@ function get_halving(){
         }
         $('#largest_tx').attr("href", 'https://blockchair.com/bitcoin/transaction/'+largest_tx.hash);//show and link to block
         $('#largest_tx_hash').text("👀 $" + Math.round(response.data.largest_transaction_24h.value_usd/1000000) + "m tx ➡️");
+
+        if (pct_change_difficulty > 0){
+            $('#est_difficulty').text('Estimated difficulty retarget: +' + pct_change_difficulty + '%')
+        } else {
+            $('#est_difficulty').text('Estimated difficulty retarget: ' + pct_change_difficulty + '%')
+        }
+
     });
 }
 

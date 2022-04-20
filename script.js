@@ -47,17 +47,23 @@ $( document ).ready(function() {
  * @constructor
  */
 function get_height(){
-    $.get("https://api.smartbit.com.au/v1/blockchain/blocks?limit=1&sort=height&dir=desc" , '&cors=true', function(response, status) {
-        let block_data = response['blocks'][0];
+
+    $.get("https://blockchain.info/latestblock", function(response, status) {
+        let height = response['height'];
+        console.log(height);
+    })
+
+
+    $.get("https://blockchain.info/latestblock", function(response, status) {
         $('#height').removeClass('animated rollIn');
         let mtimenow = Date.now();
-        let mblocktime = block_data['first_seen'] + '000';
+        let mblocktime = response['time'] + '000';
         let time_since_block = Math.round((mtimenow - mblocktime) / 1000);
-        let height = block_data["height"];
-        let block_hash = block_data["hash"];
+        let height = response['height'];
+        let block_hash = response["hash"];
         let displayed_height = document.getElementById("height").innerHTML;
-        let ntxs = block_data['transaction_count'];
-        let size = block_data['size'];
+        let ntxs = response['txIndexes'].length;
+        //let size = block_data['size'];
         let hash_link = 'https://blockchair.com/bitcoin/block/' + block_hash;
         if (parseInt(displayed_height) < parseInt(height)) {
             alert_info(height);

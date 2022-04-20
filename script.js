@@ -47,13 +47,6 @@ $( document ).ready(function() {
  * @constructor
  */
 function get_height(){
-
-    $.get("https://blockchain.info/latestblock", function(response, status) {
-        let height = response['height'];
-        console.log(height);
-    })
-
-
     $.get("https://blockchain.info/latestblock", function(response, status) {
         $('#height').removeClass('animated rollIn');
         let mtimenow = Date.now();
@@ -63,7 +56,7 @@ function get_height(){
         let block_hash = response["hash"];
         let displayed_height = document.getElementById("height").innerHTML;
         let ntxs = response['txIndexes'].length;
-        //let size = block_data['size'];
+
         let hash_link = 'https://blockchair.com/bitcoin/block/' + block_hash;
         if (parseInt(displayed_height) < parseInt(height)) {
             alert_info(height);
@@ -86,8 +79,16 @@ function get_height(){
         $('#halving').show();
         $('#countdown').show();
         $('#txs_inblock').text('Includes: '+ ntxs +' transactions');
-        $('#block_size').text('Block size: ' + (size/1000**2).toFixed(2) + ' megabytes');
+
+        $.get("https://blockchain.info/rawblock/" + block_hash, function(response, status) {
+            console.log(response);
+            let size = response['size'];
+            $('#block_size').text('Block size: ' + (size/1000**2).toFixed(2) + ' megabytes');
+        })
     });
+
+
+
     $.get("https://blockchain.info/q/hashrate", '&cors=true', function(response, status) {
         $('#hash_rate').text('Network hash rate: ' + (response/1000000000).toFixed(2) + ' EH/s')
     });

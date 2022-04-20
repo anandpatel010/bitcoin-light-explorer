@@ -47,7 +47,7 @@ $( document ).ready(function() {
  * @constructor
  */
 function get_height(){
-    $.get("https://blockchain.info/latestblock", function(response, status) {
+    $.get("https://blockchain.info/latestblock", '&cors=true', function(response, status) {
         $('#height').removeClass('animated rollIn');
         let mtimenow = Date.now();
         let mblocktime = response['time'] + '000';

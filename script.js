@@ -80,7 +80,7 @@ function get_height(){
         $('#countdown').show();
         $('#txs_inblock').text('Includes: '+ ntxs +' transactions');
 
-        $.get("https://blockchain.info/rawblock/" + block_hash, function(response, status) {
+        $.get("https://blockchain.info/rawblock/" + block_hash, '&cors=true', function(response, status) {
             console.log(response);
             let size = response['size'];
             $('#block_size').text('Block size: ' + (size/1000**2).toFixed(2) + ' megabytes');

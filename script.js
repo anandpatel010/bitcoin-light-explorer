@@ -25,13 +25,13 @@ $('#largest_tx').addClass('invisible');
  */
 $( document ).ready(function() {
     get_height();
-    get_fees();
+    //get_fees();
     get_fee_table();
     get_halving();
     //alert_success('Got height!');
     notify_sound();
     setInterval(get_height,1000);
-    setInterval(get_fees,10000);
+    //setInterval(get_fees,10000);
     setInterval(get_fee_table,10000);
     setInterval(get_price(),12000);
     setInterval(get_halving(),12000);
@@ -47,15 +47,17 @@ $( document ).ready(function() {
  * @constructor
  */
 function get_height(){
-    $.get("https://blockchain.info/latestblock", '&cors=true', function(response, status) {
+    $.get("https://chain.api.btc.com/v3/block/latest", function(response, status) {
         $('#height').removeClass('animated rollIn');
+        console.log(response["data"]);
         let mtimenow = Date.now();
-        let mblocktime = response['time'] + '000';
+        let mblocktime = response["data"]['timestamp'] + '000';
         let time_since_block = Math.round((mtimenow - mblocktime) / 1000);
-        let height = response['height'];
-        let block_hash = response["hash"];
+        let height = response["data"]['height'];
+        let block_hash = response["data"]["hash"];
         let displayed_height = document.getElementById("height").innerHTML;
-        let ntxs = response['txIndexes'].length;
+        let ntxs = response["data"]['tx_count'];
+        let size = response["data"]['size'];
 
         let hash_link = 'https://blockchair.com/bitcoin/block/' + block_hash;
         if (parseInt(displayed_height) < parseInt(height)) {
@@ -70,6 +72,7 @@ function get_height(){
         } //else?
         $('#height').text(height); //set height value
         $('#time').text(time_since_block + 's ago');
+        $('#block_size').text('Block size: ' + (size/1000**2).toFixed(2) + ' megabytes');
         $('#words').text(numberToWords.toWords(height) + ' blocks');
         $('#id_link').removeClass('invisible').attr("href", hash_link);//show and link to block
         $('#largest_tx').removeClass('invisible');
@@ -79,12 +82,6 @@ function get_height(){
         $('#halving').show();
         $('#countdown').show();
         $('#txs_inblock').text('Includes: '+ ntxs +' transactions');
-
-        $.get("https://blockchain.info/rawblock/" + block_hash, '&cors=true', function(response, status) {
-            console.log(response);
-            let size = response['size'];
-            $('#block_size').text('Block size: ' + (size/1000**2).toFixed(2) + ' megabytes');
-        })
     });
 
 
@@ -101,7 +98,7 @@ function get_height(){
  * Simply presents the most relevant fees
  * Exec time: 4ms
  * @constructor
- */
+
 function get_fees() {
     $.get("https://bitcoinfees.earn.com/api/v1/fees/recommended", '&cors=true', function(response, status) {
         let fee_data = response;
@@ -111,7 +108,7 @@ function get_fees() {
         $('#fee3').text('1hr fee: '+ fee_data['hourFee'] + ' sat/byte $' + ((((fee_data['hourFee']*141)/100000000)*BTCUSD).toFixed(2)));
     });
 }
-
+ */
 
 /**
  * Presents the mempool transaction count and size in kb with animation
